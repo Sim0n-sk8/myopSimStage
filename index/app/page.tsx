@@ -1,65 +1,254 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useEffect, useState } from 'react';
+import Head from 'next/head';
+
+const MyopiaSimulator = () => {
+  type SceneKey = 'c' | 's' | 'o';
+
+  const [currentScene, setCurrentScene] = useState<SceneKey>('c');
+  const [sliderValue, setSliderValue] = useState(0);
+  const [showHint, setShowHint] = useState(true);
+  const [toolTip, setToolTip] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [tipText,setTipText] = useState(false);
+
+  const sliderRange = Array.from({ length: 11 }, (_, i) => i);
+
+  const imagePrefix: Record<SceneKey, string> = {
+    c: 'class',
+    s: 'street',
+    o: 'outdoor',
+  };
+
+ const handleSceneChange = (scene: SceneKey) => {
+    setCurrentScene(scene);
+  };
+
+
+ useEffect(() => {
+  const checkScreenSize = () => {
+    setIsSmallScreen(window.innerWidth < 650);
+  };
+  checkScreenSize();
+  window.addEventListener('resize', checkScreenSize);
+  return () => window.removeEventListener('resize',checkScreenSize);
+ },[]);
+  
+ const showTip =() =>{
+  setTipText(!tipText);
+ };
+
+ 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <Head>
+        <title>Myopia Simulator</title>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#202427" />
+        <meta
+          name="description"
+          content="Interactive myopia simulator with real-time visual feedback."
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+
+      <div>
+
+
+ {showHint && (
+  <div className="sliderHint">
+    <svg
+      preserveAspectRatio="xMidYMid slice"
+      viewBox="10 10 80 80"
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -1, // behind the text
+      }}
+    >
+      <style>
+        {`
+          @keyframes rotateOutTop { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+          @keyframes rotateInTop { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+          @keyframes rotateOutBottom { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+          @keyframes rotateInBottom { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+          .out-top-g { animation: rotateOutTop 40s linear infinite; transform-origin: 13px 25px; }
+          .in-top-g { animation: rotateInTop 20s linear infinite; transform-origin: 13px 25px; }
+          .out-bottom-g { animation: rotateOutBottom 50s linear infinite; transform-origin: 84px 93px; }
+          .in-bottom-g { animation: rotateInBottom 30s linear infinite; transform-origin: 84px 93px; }
+        `}
+      </style>
+
+      <g className="out-top-g">
+        <path fill="var(--ani1)" d="M37-5C25.1-14.7,5.7-19.1-9.2-10-28.5,1.8-32.7,31.1-19.8,49c15.5,21.5,52.6,22,67.2,2.3C59.4,35,53.7,8.5,37-5Z"/>
+      </g>
+      <g className="in-top-g">
+        <path fill="var(--ani2)" d="M20.6,4.1C11.6,1.5-1.9,2.5-8,11.2-16.3,23.1-8.2,45.6,7.4,50S42.1,38.9,41,24.5C40.2,14.1,29.4,6.6,20.6,4.1Z"/>
+      </g>
+      <g className="out-bottom-g">
+        <path fill="var(--ani3)" d="M105.9,48.6c-12.4-8.2-29.3-4.8-39.4.8-23.4,12.8-37.7,51.9-19.1,74.1s63.9,15.3,76-5.6c7.6-13.3,1.8-31.1-2.3-43.8C117.6,63.3,114.7,54.3,105.9,48.6Z"/>
+      </g>
+      <g className="in-bottom-g">
+        <path fill="var(--ani4)" d="M102,67.1c-9.6-6.1-22-3.1-29.5,2-15.4,10.7-19.6,37.5-7.6,47.8s35.9,3.9,44.5-12.5C115.5,92.6,113.9,74.6,102,67.1Z"/>
+      </g>
+    </svg>
+
+     <span>
+    <b className="main">Myopia Vision Simulator</b>
+    <br />
+    <hr />
+    <div className="second">
+      Drag the <b>slider</b> to show different amounts of blur caused by myopia
     </div>
+  </span>
+
+  <div className="credits">
+    <div className="credit-text">Created By</div>
+    <img src="assets/NCLogo.png" alt="NevadaCloud Logo" className="logo" />
+  </div>
+  </div>
+)}
+
+
+
+        <div className="buttonGroup">
+          <button
+            className={`schoolBtn ${currentScene === 'c' ? 'active' : ''}`}
+            onClick={() => handleSceneChange('c')}
+          >
+            SCHOOL
+          </button>
+
+          <button
+            className={`playBtn ${currentScene === 'o' ? 'active' : ''}`}
+            onClick={() => handleSceneChange('o')}
+          >
+            SPORT
+          </button>
+
+          <button
+            className={`roadBtn ${currentScene === 's' ? 'active' : ''}`}
+            onClick={() => handleSceneChange('s')}
+          >
+            STREET
+          </button>
+        </div>
+
+
+
+{/*  
+        <div className="slideCon">
+          <div className="sliderContainer">
+            
+
+            <input
+              type="range"
+              className="slider"
+              min="0"
+              max="10"
+              value={sliderValue}
+              onChange={(e) => {
+                setSliderValue(parseInt(e.target.value));
+                if (showHint) setShowHint(false);
+              }}
+            />
+
+            {/* <div className="sliderNumbers">
+              {sliderRange.map((num) => (
+                <span
+                  key={num}
+                  className={`number ${sliderValue === num ? 'active' : ''}`}
+                >
+                  {-num}
+                </span>
+              ))}
+            </div> 
+          </div>
+        </div> */}
+
+         <div className="slideCon">
+           <p className={`risk ${tipText ? "active-risk" : ""}` }
+           onClick={showTip}>
+    <span className="riskLabel"><b>MYOPIA</b>&nbsp;RISK LEVEL </span>
+    {sliderValue !== 0 ? -Math.abs(sliderValue) : 0}.00D
+  </p>
+
+  {/* {tipText && ( */}
+    <div className={`tipTextContainer ${tipText ? "active" : ""}`}>
+      <p className="tipText">Myopia Risk Level:</p>
+    </div>
+  {/* )} */}
+
+       {isSmallScreen && (
+        <div className="tooltipcontainer">
+          <img
+            src="assets/toolTip.png"
+            className="tooltip"
+            alt="question mark"
+            onClick={showTip}
+          />
+        </div>
+      )}
+            <div className="sliderContainer">
+                    
+            <input
+              type="range"
+              className="slider"
+              min="0"
+              max="10"
+              step="1"
+              value={sliderValue}
+              onChange={(e) => {
+                setSliderValue(parseInt(e.target.value));
+                if (showHint) setShowHint(false);
+              }}
+            />
+
+
+            {/* Dots at snapping points */}
+            <div className="sliderDots">
+              {Array.from({ length: (10 - 0) / 1 + 1 }).map((_, i) => (
+                <span key={i} className={`dot ${i === sliderValue ? 'active' : ''}`} />
+              ))}
+            </div>
+          </div>
+
+           
+
+        </div>
+
+   
+
+
+  
+
+
+        {/* Correct image rendering for sliding */}
+        {(['c', 's', 'o'] as SceneKey[]).map((sceneKey) => (
+          <div key={sceneKey} className="fullscreenImg">
+            {sliderRange.map((val) => (
+              <img
+                key={`${sceneKey}${val}`}
+                src={`/assets/${imagePrefix[sceneKey]}${val}.jpg`}
+                alt={`Myopia ${val}`}
+                style={{
+                  display:
+                    currentScene === sceneKey && sliderValue === val ? 'block' : 'none',
+                }}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+    </>
   );
-}
+};
+
+export default MyopiaSimulator;
