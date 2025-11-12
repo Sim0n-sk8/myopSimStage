@@ -2,7 +2,6 @@
    ROOT VARIABLES
 ============================================ */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
 @import './roots.css';
 
 
@@ -142,193 +141,6 @@ button.active {
    SLIDER COMPONENTS
 ============================================ */
 
-/* .slideCon {
-  position: fixed;
-  bottom: 20px;
-  right: 30px;
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: var(--colorGradientHint);
-  backdrop-filter: blur(--globalBlur);
-  -webkit-backdrop-filter: blur(--globalBlur);
-  border: 1px solid var(--glassBorder);
-  box-shadow: var(--glassShadow);
-  padding: 5px;
-  border-radius: 15px;
-}
-
-.sliderWord{
-  color: var(--colorText);
-  text-align: center;
-  padding-bottom: 15px;
-}
-
-.sliderContainer {
-  position: relative;
-  width: 390px;
-  background: var(--riskGlass);
-  backdrop-filter: blur(--globalBlur);
-  -webkit-backdrop-filter: blur(--globalBlur);
-  border: 1px solid var(--glassBorder);
-  box-shadow: var(--glassShadow);
-  border-radius: 10px;
-  padding: 15px;
-  padding-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  height:80px;
-}
-
-/* .sliderNumbers {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.number {
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--colorText);
-  transition: all 0.3s ease;
-  min-width: 20px;
-  text-align: center;
-  text-shadow: 0 1px 2px var(--numberShadow);
-}
-
-.number.active {
-  transform: scale(1.4);
-  color: var(--colorText);
-  text-shadow: 0 1px 3px var(--numberActiveShadow);
-} 
-
-.sliderDots {
-  position: absolute;
-  top: 48%;
-  left: 0;
-  width: 100%;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
-  padding: 0 15px;
-}
-
-.sliderDots .dot {
-  width: 10px;
-  height: 10px;
-  background: var(--colorText);
-  opacity: 0.4;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.sliderDots .dot.active {
-  opacity: 1;
-  background: var(--sliderThumbGradientEnd);
-  border-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transform: scale(1.2);
-}
-
-
-.slider {
-  position: relative;
-  width: 100%;
-  height: 12px;
-  background: linear-gradient(90deg, 
-    var(--sliderBg1) 0%, 
-    var(--sliderBg1) 20%, 
-    var(--sliderBg2) 20%, 
-    var(--sliderBg2) 40%, 
-    var(--sliderBg1) 40%, 
-    var(--sliderBg1) 60%, 
-    var(--sliderBg2) 60%, 
-    var(--sliderBg2) 80%, 
-    var(--sliderBg1) 80%, 
-    var(--sliderBg1) 100%);
-  border-radius: 12px;
-  outline: none;
-  -webkit-appearance: none;
-  appearance: none;
-   margin-top: auto;
-   margin-bottom: auto;
-  backdrop-filter: blur(--globalBlur);
-  -webkit-backdrop-filter: blur(--globalBlur);
-  border: 1px solid var(--sliderBorderGlass);
-  box-shadow: 0 1px 3px var(--colorShadow);
-}
-
-.slider::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 12px;
-  background: transparent;
-  border-radius: 12px;
-}
-
-.slider::-moz-range-track {
-  width: 100%;
-  height: 12px;
-  background: transparent;
-  border-radius: 12px;
-  border: none;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 30px;
-  height: 30px;
-  /* background: linear-gradient(145deg, var(--sliderThumbGradientStart), var(--sliderThumbGradientEnd)); 
-  background-color: white;
-  backdrop-filter: blur(--globalBlur);
-  -webkit-backdrop-filter: blur(--globalBlur);
-  border: 2px solid var(--sliderThumbBorder);
-  box-shadow: 0 2px 8px var(--sliderThumbShadow);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: -8px;
-}
-
-.slider::-webkit-slider-thumb:hover {
-  transform: scale(1.1);
-
-  background: linear-gradient(145deg, var(--sliderThumbGradientStart), var(--sliderThumbGradientEnd));
-  box-shadow: 0 3px 12px var(--sliderThumbHoverShadow);
-  border-color: var(--sliderThumbHoverBorder);
-}
-
-.slider::-moz-range-thumb {
-  width: 32px;
-  height: 32px;
-  
-  
-  background: linear-gradient(145deg, var(--sliderThumbGradientStart), var(--sliderThumbGradientEnd));
-
-  backdrop-filter: blur(--globalBlur);
-  -webkit-backdrop-filter: blur(--globalBlur);
-  border: 2px solid var(--sliderThumbBorder);
-  box-shadow: 0 2px 8px var(--sliderThumbShadow);
-    
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: -10px;
-}
-
-.slider::-moz-range-thumb:hover {
-  transform: scale(1.1);
-
-  background: linear-gradient(145deg, var(--sliderThumbGradientStart), var(--sliderThumbGradientEnd));
-  box-shadow: 0 3px 12px var(--sliderThumbHoverShadow);
-  border-color: var(--sliderThumbHoverBorder);
-} */
-
 .slideCon {
   position: fixed;
   bottom: 35px;
@@ -388,7 +200,7 @@ button.active {
   background: var(--dots);
   opacity: 0.4;
   border-radius: 50%;
-  /* transition: all 0.3s ease; */
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 2499;
 }
@@ -421,7 +233,7 @@ button.active {
   -webkit-appearance: none;
   appearance: none;
   margin-top: 23px;
-  /* margin-bottom: auto; */
+
   backdrop-filter: blur(--globalBlur);
   -webkit-backdrop-filter: blur(--globalBlur);
   border: 1px solid var(--sliderBorderGlass);
@@ -534,42 +346,13 @@ button.active {
 }
 
 
-
-
-/* Credits bottom-right */
-/* .sliderHint .credits {
-  position: absolute;
-  bottom: 8px;
-  right: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: center;
-}
-
-.sliderHint .credit-text {
-  font-size: 0.5rem;
-  opacity: 0.8;
-  margin-bottom: 5px;
-  margin-right: 65px;
-}
-
-.sliderHint .logo {
-  width: 105px;
-  opacity: 0.9;
-  display: flex;
-align-items: center;
-} */
-
-/* Credits bottom-center */
 .sliderHint .credits {
   position: absolute;
   bottom: 8px;
-  left: 50%; /* move the left edge to the center */
-  transform: translateX(-50%); /* shift back by 50% of its own width to truly center */
-  display: flex;
+  left: 50%; 
+  transform: translateX(-50%);
   flex-direction: column;
-  align-items: center; /* center contents horizontally */
+  align-items: center;
   text-align: center;
 }
 
@@ -577,7 +360,7 @@ align-items: center;
   font-size: 0.5rem;
   opacity: 0.8;
   margin-bottom: 5px;
-  margin-right: 0; /* remove the previous 65px offset */
+  margin-right: 0; 
 }
 
 .sliderHint .logo {
@@ -591,9 +374,6 @@ align-items: center;
 .tipTextContainer{
   display: none;
 }
-
-
-
 
 
 
@@ -670,39 +450,9 @@ align-items: center;
     appearance: none;
     flex-shrink: 0 !important;
   }
-/* 
-.risk {
-  position: fixed; /* must be fixed 
-  top: 42%;       /* 10% of viewport height from bottom 
-  right: 6%;  
-  width: 70px;
-  height: 50px;
-  font-size: 1rem;
-  text-align: center;
-  border-radius: 15px;
-  z-index: 99;
-} */
 
 
 
-/* 
-  .risk {
-    width: 100%;
-    max-width: 230px;
-    font-size: 1rem;
-    border-radius: 8px;
-    padding: 5px;
-    position: fixed !important;
-    top: 75px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    z-index: 99;
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-  } */
 
   .sliderHint {
     position: fixed !important;
@@ -727,15 +477,6 @@ align-items: center;
     justify-content: center !important;
     align-items: center !important;
   }
-
-
-
-
-
-
-
-
-  
 
   .buttonGroup {
     position: fixed !important;
@@ -776,7 +517,6 @@ align-items: center;
     padding: 10px !important;
     margin: 0 !important;
     border-radius: 10px !important;
-    
     display: flex !important;
     flex-direction: row-reverse !important;
     justify-content: center !important;
@@ -797,53 +537,22 @@ align-items: center;
     flex-shrink: 0 !important;
   }
 
-  /* .sliderNumbers {
-    display: flex !important;
-    flex-direction: column-reverse !important;
-    justify-content: space-between !important;
-    height: 335px !important;
-    margin: 0 !important;
-    margin-right: 10px !important;
-    transform: translateX(160px) !important;
-  } */
 
   .sliderDots {
-  position: absolute  !important;
-  margin-top: 10px  !important;
-  top: 47%  !important;
-  left: 50%  !important;
-  transform: translate(-50%, -50%) rotate(90deg)  !important;
-  display: flex  !important;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
-  width: 370px; /* controls visual spacing after rotation */
-  height: auto;
-  padding: 0;
-}
-
-
-
-
-  /* .risk {
-    width: 100%;
-    max-width: 240px;
-     font-size: 0.7rem;
-    font-weight: 500; 
-    border-radius: 8px;
-    padding: 5px;
-    position: fixed !important;
-    top: 75px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    z-index: 99;
-    height: fit-content;
-    display: flex;
-    justify-content: center;
+    position: absolute  !important;
+    margin-top: 10px  !important;
+    top: 47%  !important;
+    left: 50%  !important;
+    transform: translate(-50%, -50%) rotate(90deg)  !important;
+    display: flex  !important;
+    flex-direction: row-reverse;
+    justify-content: space-between;
     align-items: center;
-    padding: 5px;
-  } */
-
+    width: 370px; 
+    height: auto;
+    padding: 0;
+  }
+    
   .riskLabel {
     display: none;
   }
@@ -869,26 +578,26 @@ align-items: center;
 
 
   .tooltipcontainer {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--colorGradientHint);
-  backdrop-filter: blur(5px); /* fixed */
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid var(--glassBorder);
-  box-shadow: var(--glassShadow);
-  padding: 4px;
- 
-  left: 50% !important;  
-  z-index: 150;
-  border-radius: 50px;
-  transform: translateX(-50%) !important;
-  bottom: calc(100% + 55px) !important;
-}
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--colorGradientHint);
+    backdrop-filter: blur(5px); /* fixed */
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid var(--glassBorder);
+    box-shadow: var(--glassShadow);
+    padding: 4px;
+  
+    left: 50% !important;  
+    z-index: 150;
+    border-radius: 50px;
+    transform: translateX(-50%) !important;
+    bottom: calc(100% + 55px) !important;
+  }
 
 .tooltip {
-  padding: 5px; /* space inside the tooltip around the image */
+  padding: 5px; 
   width: 38px;
   height: 38px;
   cursor: pointer;
@@ -899,7 +608,7 @@ align-items: center;
 }
 
 
-/* Smooth color change for .risk */
+
 .risk {
   position: absolute !important;
   bottom: calc(100% + 10px) !important;
@@ -918,13 +627,13 @@ align-items: center;
   z-index: 99;
   box-sizing: border-box;
   background: var(--riskColor);
-  transition: background 0.4s ease, transform 0.4s ease; /* smooth color & scale */
+  transition: background 0.4s ease, transform 0.4s ease; 
 }
 
-/* Active state for .risk */
+
 .risk.active-risk {
-  background: var(--ani1);
-  transform: translateX(-50%) scale(1.1); /* slightly grows to feel "connected" */
+  background: var(--mobileRiskActive);
+  transform: translateX(-50%) scale(1.1);
 }
 
 /* Tip container animation */
@@ -932,7 +641,7 @@ align-items: center;
   position: absolute !important;
   bottom: calc(100% + 4px) !important;
   right: 5% !important;
-  transform: translateX(0%) scaleX(0) scaleY(0); /* start invisible and collapsed */
+  transform: translateX(0%) scaleX(0) scaleY(0); 
   width: 250px !important;
   height: 47px !important;
   font-size: 1rem !important;
@@ -947,11 +656,10 @@ align-items: center;
   color: var(--colorText);
   white-space: nowrap;
   background-color: var(--riskColor);
-  transform-origin: right center; /* grows out from the left edge (near risk) */
-transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1), opacity 0.3s ease-in-out;  opacity: 0;
+  transform-origin: right center; 
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1), opacity 0.3s ease-in-out;  opacity: 0;
 }
 
-/* Active tip animation */
 .tipTextContainer.active {
   transform: translateX(4.5%) scaleX(1) scaleY(1);
   opacity: 1;
