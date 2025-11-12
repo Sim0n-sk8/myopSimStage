@@ -587,7 +587,7 @@ button.active {
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid var(--glassBorder);
     box-shadow: var(--glassShadow);
-    padding: 4px;
+    padding: 27px;
   
     left: 50% !important;  
     z-index: 150;
@@ -598,13 +598,18 @@ button.active {
 
 .tooltip {
   padding: 5px; 
-  width: 38px;
-  height: 38px;
+  width: 45px;
+  height: 45px;
+
   cursor: pointer;
   background-color: var(--riskGlass);
   border-radius: 50px;
-
-
+  color:white;
+  border: 3px solid white;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 

@@ -3,6 +3,10 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiHelpCircle, FiInfo } from 'react-icons/fi'; // Example icons
+import { BiBulb, BiQuestionMark } from "react-icons/bi";
+
 
 const MyopiaSimulator = () => {
   type SceneKey = 'c' | 's' | 'o';
@@ -19,6 +23,7 @@ const MyopiaSimulator = () => {
     o: 'outdoor',
   };
 
+  
 
  const handleSceneChange = (scene: SceneKey) => {
     setCurrentScene(scene);
@@ -175,16 +180,25 @@ const MyopiaSimulator = () => {
         </div>
 
 
-          {isSmallScreen && (
-            <div className="tooltipcontainer">
-              <img
-                src="assets/toolTip.png"
-                className="tooltip"
-                alt="question mark"
-                onClick={showTip}
-              />
-            </div>
-          )}
+{isSmallScreen && (
+  <div className="tooltipcontainer" onClick={showTip}>
+    <AnimatePresence mode="sync" initial={false} >
+      <motion.div
+        key={tipText ? 'bulb' : 'question'}
+
+        initial={{ opacity: 0, rotate: 0 }}
+        animate={{ opacity: 1, rotate: 360 }}
+        exit={{ opacity: 0, rotate: 360 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+        style={{ position: 'absolute' }} // overlap both icons
+      >
+        {tipText ? <BiBulb className="tooltip"/> : <BiQuestionMark className="tooltip"/>}
+      </motion.div>
+    </AnimatePresence>
+  </div>
+)}
+
+
 
           <div className="sliderContainer">  
               <input
