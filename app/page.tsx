@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
+
 const MyopiaSimulator = () => {
   type SceneKey = 'c' | 's' | 'o';
 
@@ -37,6 +38,25 @@ const MyopiaSimulator = () => {
   setTipText(!tipText);
  };
 
+
+
+
+
+ useEffect(() =>{
+  const timeOut = setTimeout(()=>{
+    if(window.innerWidth <650 ){
+         setShowHint(false);
+   }
+  
+  },5000);
+
+    
+ 
+
+  return() =>{
+    clearTimeout(timeOut);
+  };
+ },[])
  
   return (
     <>
